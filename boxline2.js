@@ -36,6 +36,8 @@ export function renderBoxGraph({nodes, links}, direction, ignore, callback) {
     let [itemColors, recipeColors] = getColorMaps(nodes, links)
     if (direction === "down") {
         direction = "TB"
+    } else if (direction === "left") {
+        direction = "RL"
     } else {
         direction = "LR"
     }

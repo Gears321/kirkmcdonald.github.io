@@ -110,18 +110,24 @@ export function renderSankey(data, direction, ignore) {
     text.remove()
     testSVG.remove()
 
-    let nw, np
+    let nw, np, nodeAlign
     if (direction === "down") {
         nw = nodePadding
         np = maxNodeWidth
+        nodeAlign = d3sankey.sankeyRight
     } else if (direction === "right") {
         nw = maxNodeWidth
         np = nodePadding
+        nodeAlign = d3sankey.sankeyRight
+    } else if (direction === "left") {
+        nw = maxNodeWidth
+        np = nodePadding
+        nodeAlign = d3sankey.sankeyLeft
     }
     let sankey = d3sankey.sankey()
         .nodeWidth(nw)
         .nodePadding(np)
-        .nodeAlign(d3sankey.sankeyRight)
+        .nodeAlign(nodeAlign)
         .maxNodeHeight(maxNodeHeight)
         .linkLength(columnWidth)
     let {nodes, links} = sankey(data)
