@@ -225,6 +225,22 @@ function makeRecipe(data, items, d) {
         }
         ingredients.push(new Ingredient(item, Rational.from_float_approximate(amount)))
     }
+    
+    // Modify Advanced Circuit recipe to use 15 electronic circuits and add boiler
+    if (d.key === "advanced-circuit") {
+        ingredients = []
+        // Add 15 electronic circuits
+        let electronicCircuitItem = items.get("electronic-circuit")
+        if (electronicCircuitItem) {
+            ingredients.push(new Ingredient(electronicCircuitItem, Rational.from_float_approximate(15)))
+        }
+        // Add 1 boiler
+        let boilerItem = items.get("boiler")
+        if (boilerItem) {
+            ingredients.push(new Ingredient(boilerItem, Rational.from_float_approximate(1)))
+        }
+    }
+    
     let conditions = []
     if (d.surface_conditions) {
         for (let {property, min, max} of d.surface_conditions) {
