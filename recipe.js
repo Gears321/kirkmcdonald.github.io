@@ -464,6 +464,31 @@ export function getRecipes(data, items) {
             recipes.set(d.key, r)
         }
     }
+    
+    // Override Advanced circuit recipe to use 15 electronic circuits and add boiler requirement
+    if (recipes.has("advanced-circuit")) {
+        let originalRecipe = recipes.get("advanced-circuit")
+        let newIngredients = [
+            new Ingredient(items.get("electronic-circuit"), Rational.from_float(15)),
+            new Ingredient(items.get("plastic-bar"), Rational.from_float(2)),
+            new Ingredient(items.get("copper-cable"), Rational.from_float(4)),
+            new Ingredient(items.get("boiler"), Rational.from_float(1))
+        ]
+        let modifiedRecipe = new Recipe(
+            originalRecipe.key,
+            originalRecipe.name,
+            originalRecipe.order,
+            originalRecipe.icon_col,
+            originalRecipe.icon_row,
+            originalRecipe.allow_productivity,
+            originalRecipe.category,
+            originalRecipe.time,
+            newIngredients,
+            originalRecipe.products,
+            originalRecipe.conditions,
+        )
+        recipes.set("advanced-circuit", modifiedRecipe)
+    }
     for (let d of data.resources) {
         let category = d.category
         if (!category) {
